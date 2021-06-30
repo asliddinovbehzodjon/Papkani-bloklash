@@ -1,0 +1,38 @@
+@ECHO OFF
+if EXIST "Control Panel.{21EC2020-3AEA-1069-A2DD-08002B30309D}" goto UNLOCK
+if NOT EXIST Private goto MDPrivate
+:CONFIRM
+echo Papka bloklansinmi? (Ha/Yo'q)
+set/p "cho=>"
+if %cho%==Yoq goto END
+if %cho%==YOQ goto END
+if %cho%==YO'Q goto END
+if %cho%==Yo'q goto END
+if %cho%==yoq goto END
+if %cho%==yo'q goto END
+if %cho%==ha goto LOCK
+if %cho%==Ha goto LOCK
+if %cho%==HA goto LOCK
+echo Invalid choice.
+goto CONFIRM
+:LOCK
+ren Private "Control Panel.{21EC2020-3AEA-1069-A2DD-08002B30309D}"
+attrib +h +s "Control Panel.{21EC2020-3AEA-1069-A2DD-08002B30309D}"
+echo Papka bloklandi!
+goto End
+:UNLOCK
+echo Papkani blokdan chqarish uchun parolni kiriting:
+set/p "pass=>"
+if NOT %pass%== 'Sizning parolingiz" goto FAIL
+attrib -h -s "Control Panel.{21EC2020-3AEA-1069-A2DD-08002B30309D}"
+ren "Control Panel.{21EC2020-3AEA-1069-A2DD-08002B30309D}" Private
+echo Papka blokdan chiqarildi!
+goto End
+:FAIL
+echo Xato parol!
+goto end
+:MDPrivate
+md Private
+echo Papka ochildi!
+goto End
+:End
